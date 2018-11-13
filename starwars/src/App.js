@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
- 
+import './App.css'
+import Table1 from './Table1';
+
+var data = [
+  {id: 1, name: 'Gob', value: '2'},
+  {id: 2, name: 'Buster', value: '5'},
+  {id: 3, name: 'George Michael', value: '4'}
+];
+
 
 class App extends Component {
     constructor(){
@@ -16,7 +24,6 @@ class App extends Component {
         fetch('https://swapi.co/api/planets/')
             // convert to json format
             .then(response => response.json())
-            // arrow functions is used to not lose
             .then(json => {
                 this.setState({
                     isLoaded: true,
@@ -29,7 +36,9 @@ class App extends Component {
     render() {
 
         // create variable to access items in state
-        var { isLoaded, items } = this.state;
+        var { 
+                isLoaded, 
+                items       } = this.state;
 
         if(!isLoaded){
             return(
@@ -38,23 +47,15 @@ class App extends Component {
         }
         else{
             return (
-              // create unordered list
-              // use map function which creates new array, which loops all objects from API 
                 <div className="App">
-                    <ul>
-                        {items.results.map(item => (
-                            <li key = {item.name}>
-                                {item.name}
-                            </li>
-                          ))}
-                    </ul>
+                    <p className="Table-header">Basic Table</p>
+                    <Table1 data={items.results}/>
                     Data has been loaded.
                 </div>
             );
         }
-
-
     }
 }
+
 
 export default App;
