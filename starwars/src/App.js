@@ -10,14 +10,13 @@ class App extends Component {
             isLoaded: false,
             items: [],
         }
-        // this.fetchPlanets = this.fetchPlanets.bind(this);
     }
 
     // runs after render method, and updates render to output resources
     componentDidMount(){
         this.fetchPlanets();
     }
-
+    // method to fetch planets by page
     fetchPlanets(){
         var pagesRequired = 7;
         var base = "https://swapi.co/api/planets/?page=";
