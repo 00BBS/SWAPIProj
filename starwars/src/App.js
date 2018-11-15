@@ -61,6 +61,26 @@ class App extends Component {
         })
     }
 
+    // method to sort planets by population ascending
+    sortPlanetsPopA(items){
+        items.sort( function( a,b ){
+            return a.population - b.population;
+        });
+        this.setState({
+            items
+        })
+    }
+
+    // method to sort planets by population descending
+    sortPlanetsPopD(items){
+        items.sort( function( a,b ){
+            return b.population - a.population;
+        });
+        this.setState({
+            items
+        })
+    }
+
     // render method responsible for producing output
     render() {
         // create variable to access items in state
@@ -82,6 +102,8 @@ class App extends Component {
                     <p className="Table-header">The Planets of Star Wars</p>
                     <button type="submit" onClick={() => { this.sortPlanetsA(items) }}>Sort Alphabetically Asc</button>
                     <button type="submit" onClick={() => { this.sortPlanetsD(items) }}>Sort Alphabetically Desc</button>
+                    <button type="submit" onClick={() => { this.sortPlanetsPopA(items) }}>Sort Population Asc</button>
+                    <button type="submit" onClick={() => { this.sortPlanetsPopD(items) }}>Sort Population Desc</button>
                     <Table1 data={items}/>
                 </div>
             );
