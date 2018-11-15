@@ -16,6 +16,7 @@ class App extends Component {
     componentDidMount(){
         this.fetchPlanets();
     }
+
     // method to fetch planets by page
     fetchPlanets(){
         var pagesRequired = 7;
@@ -34,12 +35,41 @@ class App extends Component {
         }
     }
 
+    // method to sort planets alphabetically ascending
+    sortPlanetsA(items){
+        items.sort( function( a, b ) {
+            a = a.name.toLowerCase();
+            b = b.name.toLowerCase();
+            return (a < b) ? -1 : (a > b) ? 1 : 0;
+        });
+
+        this.setState({
+            items
+        })
+    }
+
+    // method to sort planets alphabetically descending
+    sortPlanetsD(items){
+        items.sort( function( a, b ) {
+            a = a.name.toLowerCase();
+            b = b.name.toLowerCase();
+            return (a > b) ? -1 : (a < b) ? 1 : 0;
+        });
+
+        this.setState({
+            items
+        })
+    }
+
     // render method responsible for producing output
     render() {
         // create variable to access items in state
         var { 
                 isLoaded,
                 items,  } = this.state;
+
+
+
         if(!isLoaded){
             return(
                 <div> Data is loading </div>
@@ -50,6 +80,8 @@ class App extends Component {
             return (
                 <div className="App">
                     <p className="Table-header">The Planets of Star Wars</p>
+                    <button type="submit" onClick={() => { this.sortPlanetsA(items) }}>Sort Alphabetically Asc</button>
+                    <button type="submit" onClick={() => { this.sortPlanetsD(items) }}>Sort Alphabetically Desc</button>
                     <Table1 data={items}/>
                 </div>
             );
