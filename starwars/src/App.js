@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css'
 import Table1 from './Table1';
-
+import {Input} from 'mdbreact'
 class App extends Component {
     constructor(props){
         super(props);
@@ -9,6 +9,7 @@ class App extends Component {
             // boolean variable
             isLoaded: false,
             items: [],
+            search: "",
         }
     }
 
@@ -33,6 +34,11 @@ class App extends Component {
                 })
             })
         }
+    }
+
+
+    onchange = e =>{
+        this.setState({search : e.target.value});
     }
 
     // method to sort planets alphabetically ascending
@@ -73,6 +79,7 @@ class App extends Component {
 
     // method to sort planets by population descending
     sortPlanetsPopD(items){
+        const str = "unknown";
         items.sort( function( a,b ){
             return b.population - a.population;
         });
@@ -86,9 +93,12 @@ class App extends Component {
         // create variable to access items in state
         var { 
                 isLoaded,
-                items,  } = this.state;
+                items,  
+                search } = this.state;
 
-
+        const filteredPlanets = items.filter( planets => {
+            return planets.name.toLowerCase().indexOf( search.toLowerCase() ) !== -1
+        })
 
         if(!isLoaded){
             return(
@@ -100,11 +110,12 @@ class App extends Component {
             return (
                 <div className="App">
                     <p className="Table-header">The Planets of Star Wars</p>
+                    <Input label="Search Planet" icon="search" onChange={this.onchange}/>
                     <button type="submit" onClick={() => { this.sortPlanetsA(items) }}>Sort Alphabetically Asc</button>
                     <button type="submit" onClick={() => { this.sortPlanetsD(items) }}>Sort Alphabetically Desc</button>
                     <button type="submit" onClick={() => { this.sortPlanetsPopA(items) }}>Sort Population Asc</button>
                     <button type="submit" onClick={() => { this.sortPlanetsPopD(items) }}>Sort Population Desc</button>
-                    <Table1 data={items}/>
+                    <Table1 data={filteredPlanets}/>
                 </div>
             );
         }
