@@ -70,7 +70,7 @@ class App extends Component {
     // method to sort planets by population ascending
     sortPlanetsPopA(items){
         items.sort( function( a,b ){
-            return a.population - b.population;
+            return a.population.localeCompare(b.population, undefined, { numeric: true, sensitivity: 'base' });
         });
         this.setState({
             items
@@ -81,7 +81,7 @@ class App extends Component {
     sortPlanetsPopD(items){
         const str = "unknown";
         items.sort( function( a,b ){
-            return b.population - a.population;
+            return b.population.localeCompare(a.population, undefined, { numeric: true, sensitivity: 'base' });
         });
         this.setState({
             items
